@@ -1,12 +1,20 @@
 class SessionsController < ApplicationController
 
+  def new
+  end
+
   def create
-    if params[:name] == nil || ""
-      redirect_to login_path
+  	# byebug
+    if params[:name] && !params[:name].empty?
+    	session[:name] = params[:name]
+      redirect_to homepage_path
     else
-      session[:name] = params[:name]
-      redirect_to show_path
+      redirect_to login_path
     end
+  end
+
+  def show
+  	@current_user = current_user
   end
 
   def destroy
